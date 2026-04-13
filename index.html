@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no"> 
+    
+    <title>Nauman Law Associates | Advocate Muhammad Nauman Yahya</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        html { 
+            scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+            overflow-x: hidden;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0b0d10; 
+            color: #e5e7eb; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden;
+            width: 100%;
+            min-height: -webkit-fill-available;
+        }
+        
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+        .gold-text { color: #c9a24d; }
+        .glass { background: rgba(15, 17, 22, 0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .hero-gradient { 
+            background: linear-gradient(rgba(11,13,16,0.5), rgba(11,13,16,0.7)), url('https://iili.io/fr5dRwB.jpg'); 
+            background-size: cover; background-position: center; 
+            background-attachment: scroll;
+        }
+
+        .stage {
+            perspective: 2000px;
+            height: 550px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: visible;
+        }
+        .ring {
+            position: relative;
+            width: 220px;
+            height: 280px;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .team-member-node {
+            position: absolute;
+            width: 220px;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-photo-wrap {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid rgba(201, 162, 77, 0.1);
+            overflow: hidden;
+            background: #111;
+            transition: all 1.2s ease;
+        }
+        .member-photo-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%) brightness(0.4);
+            transition: 1.2s;
+        }
+        .team-member-node.active .member-photo-wrap {
+            transform: scale(1.3);
+            border-color: #c9a24d;
+            box-shadow: 0 0 40px rgba(201, 162, 77, 0.3);
+        }
+        .team-member-node.active img { filter: grayscale(0%) brightness(1); }
+        
+        .team-member-node:not(.active) { opacity: 0.4; }
+        .team-member-node.active { opacity: 1; }
+
+        .member-info {
+            text-align: center; margin-top: 35px;
+            opacity: 0; transform: translateY(10px);
+            transition: 1s; pointer-events: none;
+        }
+        .team-member-node.active .member-info { opacity: 1; transform: translateY(0); }
+
+        .img-hover-effect { filter: grayscale(100%) brightness(0.8); transition: all 0.5s ease-in-out; }
+        .img-hover-effect:hover { filter: grayscale(0%) brightness(1); transform: scale(1.02); }
+
+        .session-link { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; -webkit-tap-highlight-color: transparent; }
+        .session-link:hover { background: rgba(201,162,77,0.08); border-color: #c9a24d; transform: translateX(5px); }
+
+        .fun-card { background: rgba(255,255,255,0.03); padding: 4px; border: 1px solid rgba(201,162,77,0.15); overflow: hidden; border-radius: 8px; transition: 0.4s; }
+        .fun-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+        .fun-card:hover img { filter: grayscale(0%); }
+        .fun-card:hover { border-color: #c9a24d; box-shadow: 0 10px 30px rgba(201,162,77,0.1); }
+
+        .client-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; transition: 0.3s; }
+        .client-card:hover { border-color: #c9a24d; transform: translateY(-5px); }
+
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white; width: 60px; height: 60px; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 15px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #128c7e; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #c9a24d; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<a href="https://wa.me/923009417558" class="whatsapp-float" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<div class="bg-[#c9a24d] text-black py-2 px-6 text-[10px] font-bold uppercase tracking-widest flex flex-wrap justify-between items-center sticky top-0 z-[60]">
+    <div class="flex flex-wrap gap-4">
+        <a href="https://maps.app.goo.gl/BNBPKh3ZtfsgnqJ47" target="_blank" class="hover:text-white transition">
+            <span><i class="fa-solid fa-location-dot mr-1"></i> Al-Majeed Centre, 1 Mozang Rd, Lahore</span>
+        </a>
+    </div>
+    <div class="flex gap-6 mt-2 md:mt-0">
+        <a href="tel:04237354144" class="hover:text-white transition"><i class="fa-solid fa-phone mr-1"></i> 042-37354144</a>
+        <a href="https://wa.me/923009417558" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-whatsapp mr-1"></i> 0300 9417558</a>
+    </div>
+</div>
+
+<div class="relative w-full z-50">
+    <nav class="glass">
+        <div class="max-w-7xl mx-auto px-6 py-4 grid grid-cols-2 lg:grid-cols-3 items-center">
+            <a href="https://www.facebook.com/nauman.yahya.9" target="_blank" class="text-lg md:text-xl font-bold uppercase tracking-tighter hover:opacity-80 transition">
+                Nauman <span class="gold-text font-light">Law Associates</span>
+            </a>
+            
+            <div class="hidden lg:flex gap-5 text-[10px] font-bold uppercase tracking-widest justify-center whitespace-nowrap">
+                <a href="#" class="text-[#c9a24d] hover:text-white transition">Home</a>
+                <a href="#about" class="text-[#c9a24d] hover:text-white transition">About</a>
+                <a href="#services" class="text-[#c9a24d] hover:text-white transition">Services</a>
+                <a href="#clients" class="text-[#c9a24d] hover:text-white transition">Clients</a>
+                <a href="#team" class="text-[#c9a24d] hover:text-white transition">Team</a>
+                <a href="#sessions" class="text-[#c9a24d] hover:text-white transition">LTBA Sessions</a>
+                <a href="#useful-links" class="text-[#c9a24d] hover:text-white transition">Portals</a>
+            </div>
+
+            <div class="flex justify-end">
+                <a href="https://wa.me/923009417558" target="_blank" class="bg-[#c9a24d] text-black px-4 py-2 md:px-6 md:py-2 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-white transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<header class="h-screen flex flex-col justify-between items-center text-center hero-gradient px-4 py-32">
+    <div data-aos="fade-down" class="mt-10">
+        <h1 class="gold-text uppercase tracking-[0.5em] text-xl md:text-3xl font-bold">
+            Established 2000 | Lahore
+        </h1>
+    </div>
+    <div data-aos="fade-up" class="mb-10">
+        <p class="max-w-4xl mx-auto text-white text-lg md:text-2xl italic border-t border-b border-[#c9a24d]/30 py-8 px-6">
+            "Swift and responsible service whenever and wherever needed."
+        </p>
+    </div>
+</header>
+
+<section id="about" class="py-24 bg-black">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-16 items-start">
+            <div class="md:sticky md:top-32" data-aos="fade-right">
+                <img src="https://i.ibb.co/F4ny81Tc/nauman-yahya.jpg" class="max-w-[280px] md:max-w-[320px] rounded-lg border border-[#c9a24d]/30 shadow-2xl mx-auto md:mx-0 img-hover-effect" alt="Muhammad Nauman Yahya">
+                <div class="mt-8 p-6 border-l-2 border-[#c9a24d] bg-white/5 rounded-r-lg">
+                    <h5 class="gold-text font-bold uppercase text-xs tracking-widest mb-2">⚖️ Professional Status</h5>
+                    <p class="text-sm text-slate-300 leading-relaxed italic mb-6">🏛️ Advocate High Court<br>💼 Proprietor, Nauman Law Associates<br>🛡️ Member, Punjab Bar Council</p>
+                    <a href="https://www.facebook.com/nauman.yahya.9" target="_blank" class="inline-flex items-center gap-3 bg-[#1877F2] text-white px-5 py-2.5 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-[#1877F2] transition duration-300 w-full justify-center md:justify-start md:w-auto">
+                        <i class="fa-brands fa-facebook-f text-sm"></i> Follow on Facebook
+                    </a>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left">
+                <h4 class="gold-text uppercase tracking-widest text-xs mb-2">Detailed Profile</h4>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Muhammad Nauman Yahya</h2>
+                <div class="space-y-8 text-slate-300 text-sm leading-relaxed">
+                    <div>
+                        <h5 class="gold-text font-bold uppercase tracking-widest text-xs mb-4">👑 Leadership & Bar Service</h5>
+                        <ul class="space-y-3 text-sm md:text-base">
+                            <li><strong>🥇 President</strong> | Lahore Tax Bar Association (2022–2023)</li>
+                            <li><strong>🥈 Vice President</strong> | Lahore Tax Bar Association (2014–2015)</li>
+                            <li><strong>📜 General Secretary</strong> | Lahore Tax Bar Association (2011–2012)</li>
+                            <li><strong>🏛️ Executive Member</strong> | LTBA (2007–08, 2012–13, 2018-19, and 2021-22)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="gold-text font-bold uppercase tracking-widest text-xs mb-4">🖋️ Professional Enrollments</h5>
+                        <ul class="space-y-3 text-[12px] md:text-[13px] uppercase tracking-wider text-slate-200">
+                            <li>🎓 Graduation | University of the Punjab</li>
+                            <li>⚖️ LLB | Punjab University Law College</li>
+                            <li>💼 Enrolled Income Tax Practitioner (CBR)</li>
+                            <li>🏛️ Member Lahore Tax Bar Association</li>
+                            <li>⚖️ Advocate lower courts (Punjab Bar Council)</li>
+                            <li>📜 Member Lahore Bar Association</li>
+                            <li>🏛️ Enrolled Advocate High Court</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="team" class="py-32 bg-[#0b0d10] overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6 text-center mb-16">
+        <h2 class="text-3xl font-bold uppercase tracking-widest mb-4">Our <span class="gold-text">Team</span></h2>
+        <p class="text-slate-500 text-[10px] uppercase tracking-[0.4em]">Rotating Expertise</p>
+    </div>
+
+    <div class="stage">
+        <div class="ring" id="teamRing">
+            <div class="team-member-node" data-index="0">
+                <div class="member-photo-wrap"><img src="https://i.ibb.co/21NHhHYJ/sumair-saeed.jpg"></div>
+                <div class="member-info">
+                    <h3 class="text-lg font-bold">Sumair Saeed</h3>
+                    <p class="gold-text text-[9px] uppercase font-bold tracking-widest">Associate Advocate</p>
+                </div>
+            </div>
+            <div class="team-member-node" data-index="1">
+                <div class="member-photo-wrap"><img src="https://i.ibb.co/C5LVM8tt/malik-abubakar.jpg"></div>
+                <div class="member-info">
+                    <h3 class="text-lg font-bold">Malik Abubakar</h3>
+                    <p class="gold-text text-[9px] uppercase font-bold tracking-widest">Associate Advocate</p>
+                </div>
+            </div>
+            <div class="team-member-node" data-index="2">
+                <div class="member-photo-wrap"><img src="https://i.ibb.co/60HWddCR/qasim-bhai.jpg"></div>
+                <div class="member-info">
+                    <h3 class="text-lg font-bold">Qasim Rafique</h3>
+                    <p class="gold-text text-[9px] uppercase font-bold tracking-widest">Associate Advocate</p>
+                </div>
+            </div>
+            <div class="team-member-node" data-index="3">
+                <div class="member-photo-wrap"><img src="https://i.ibb.co/pGbWmCR/ayaz-javed.jpg"></div>
+                <div class="member-info">
+                    <h3 class="text-lg font-bold">Ayaz Javed</h3>
+                    <p class="gold-text text-[9px] uppercase font-bold tracking-widest">Associate Advocate</p>
+                </div>
+            </div>
+            <div class="team-member-node" data-index="4">
+                <div class="member-photo-wrap"><img src="https://i.ibb.co/GvPxWxyH/Gemini-Generated-Image-wqvdxawqvdxawqvd.png"></div>
+                <div class="member-info">
+                    <h3 class="text-lg font-bold">Shan Ali</h3>
+                    <p class="text-slate-400 text-[9px] uppercase font-bold tracking-widest italic">Office Manager</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-24 bg-black border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h4 class="gold-text uppercase tracking-widest text-xs mb-4">Core Expertise</h4>
+        <h2 class="text-3xl font-bold uppercase tracking-widest mb-16">Practice <span class="gold-text">Areas</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="session-link p-10 rounded-lg">
+                <i class="fa-solid fa-scale-balanced text-4xl gold-text mb-6"></i>
+                <h3 class="text-xl font-bold mb-4">Taxation Law</h3>
+                <p class="text-base text-slate-300">Expertise in Income Tax, Sales Tax, and Custom Duty litigation and compliance.</p>
+            </div>
+            <div class="session-link p-10 rounded-lg">
+                <i class="fa-solid fa-building-columns text-4xl gold-text mb-6"></i>
+                <h3 class="text-xl font-bold mb-4">Banking Law</h3>
+                <p class="text-base text-slate-300">Specialized recovery suits and legal documentation for premier financial institutions.</p>
+            </div>
+            <div class="session-link p-10 rounded-lg">
+                <i class="fa-solid fa-briefcase text-4xl gold-text mb-6"></i>
+                <h3 class="text-xl font-bold mb-4">Corporate Law</h3>
+                <p class="text-base text-slate-300">SECP company registration, Intellectual Property, and corporate governance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="clients" class="py-20 bg-[#0b0d10] border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h4 class="gold-text uppercase tracking-widest text-xs mb-4">Our Portfolio</h4>
+        <h2 class="text-3xl font-bold uppercase tracking-widest mb-12">Leading <span class="gold-text">Clients</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="client-card rounded-lg"><h3 class="gold-text font-bold text-sm mb-1 uppercase tracking-widest">Banking</h3><p class="text-sm text-white">MCB Bank Ltd. / Allied Bank Ltd.</p></div>
+            <div class="client-card rounded-lg"><h3 class="gold-text font-bold text-sm mb-1 uppercase tracking-widest">Regulatory</h3><p class="text-sm text-white">Securities and Exchange Commission of Pakistan (SECP)</p></div>
+            <div class="client-card rounded-lg"><h3 class="gold-text font-bold text-sm mb-1 uppercase tracking-widest">Corporates</h3><p class="text-sm text-white">Beadon Group of Companies</p></div>
+            <div class="client-card rounded-lg"><h3 class="gold-text font-bold text-sm mb-1 uppercase tracking-widest">Groups</h3><p class="text-sm text-white">Mahmood Sons Group of Companies</p></div>
+            <div class="client-card rounded-lg"><h3 class="gold-text font-bold text-sm mb-1 uppercase tracking-widest">Industrial</h3><p class="text-sm text-white">Modern Pipe Mills (Pvt.) Ltd.</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="sessions" class="py-24 bg-black border-y border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-20">
+            <h5 class="gold-text font-bold uppercase tracking-widest text-xs mb-4 border-l-4 border-[#c9a24d] pl-4">👑 LTBA Leadership Highlights</h5>
+            <h2 class="text-3xl font-bold mb-8">Presidential Annual Dinner Addresses</h2>
+            <div class="mb-12 relative group overflow-hidden rounded-xl border border-[#c9a24d]/30 max-w-4xl mx-auto" data-aos="zoom-in">
+                <div class="relative block">
+                    <img src="https://i.ibb.co/G4Hcvc8B/Nauman-Yahya-2.jpg" alt="Nauman Yahya 2" class="w-full h-auto grayscale group-hover:grayscale-0 transition duration-700">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span class="text-white text-2xl md:text-5xl font-bold uppercase tracking-[0.3em] drop-shadow-2xl animate-pulse">
+                            President Address
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="https://youtu.be/983QpbOmmk4" target="_blank" class="session-link p-6 rounded-lg text-center"><i class="fa-brands fa-youtube text-red-600 text-3xl mb-3"></i><p class="text-xs font-bold uppercase tracking-widest">Dinner Address Part 1</p></a>
+                <a href="https://youtu.be/m0-R0E5QPK4" target="_blank" class="session-link p-6 rounded-lg text-center"><i class="fa-brands fa-youtube text-red-600 text-3xl mb-3"></i><p class="text-xs font-bold uppercase tracking-widest">Dinner Address Part 2</p></a>
+                <a href="https://youtu.be/kzpbk9ZVGL0" target="_blank" class="session-link p-6 rounded-lg text-center"><i class="fa-brands fa-youtube text-red-600 text-3xl mb-3"></i><p class="text-xs font-bold uppercase tracking-widest">Dinner Address Part 3</p></a>
+            </div>
+        </div>
+        <div>
+            <h5 class="gold-text font-bold uppercase tracking-widest text-xs mb-4 border-l-4 border-[#c9a24d] pl-4">📖 Legal Education</h5>
+            <h2 class="text-3xl font-bold mb-8">Academic Video Library</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="https://youtu.be/kzpbk9ZVGL0" target="_blank" class="session-link p-4 rounded text-xs">Provincial Sales Tax Withholdings 1</a>
+                <a href="https://youtu.be/csDkxv79r6A" target="_blank" class="session-link p-4 rounded text-xs">Provincial Sales Tax Withholdings 2</a>
+                <a href="https://youtu.be/kzpbk9ZVGL0" target="_blank" class="session-link p-4 rounded text-xs">Sales Tax & Services Withholding</a>
+                <a href="https://youtu.be/zPP8Yfg1bwY" target="_blank" class="session-link p-4 rounded text-xs">Iqbal Day Seminar (Part 1)</a>
+                <a href="https://youtu.be/0NYDkJ2SrlE" target="_blank" class="session-link p-4 rounded text-xs">Iqbal Day Seminar (Part 2)</a>
+                <a href="https://youtu.be/zPP8Yfg1bwY" target="_blank" class="session-link p-4 rounded text-xs">Iqbal Day Presidential Address</a>
+                <a href="https://youtu.be/Kfez0dS-iTA" target="_blank" class="session-link p-4 rounded text-xs">Refund Adjustment (Part 1)</a>
+                <a href="https://youtu.be/ydEaRdyradg" target="_blank" class="session-link p-4 rounded text-xs">Refund Adjustment (Part 2)</a>
+                <a href="https://youtu.be/Kfez0dS-iTA" target="_blank" class="session-link p-4 rounded text-xs">Rectification & Appeal</a>
+                <a href="https://youtu.be/kzpbk9ZVGL0" target="_blank" class="session-link p-4 rounded text-xs">LTBA General Body Meet</a>
+                <a href="https://youtu.be/csDkxv79r6A" target="_blank" class="session-link p-4 rounded text-xs">Professional Ethics Session</a>
+                <a href="https://youtu.be/0NYDkJ2SrlE" target="_blank" class="session-link p-4 rounded text-xs">Tax Law Update 2023</a>
+                <a href="https://youtu.be/ydEaRdyradg" target="_blank" class="session-link p-4 rounded text-xs">Civil Procedure Session</a>
+                <a href="https://youtu.be/m0-R0E5QPK4" target="_blank" class="session-link p-4 rounded text-xs">Legal Drafting Workshop</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="fun" class="py-24 bg-[#0b0d10] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-12 uppercase tracking-widest">Life at the <span class="gold-text">Firm</span></h2>
+        
+        <div class="relative overflow-hidden w-full">
+            <div id="slideshow-track" class="flex gap-4">
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/LXJ4qWQk/490585184-9157907414313507-7793247764653434814-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/HTSTRKHJ/493932475-9240202246084023-4887830581117079494-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/YBNxXYDC/508596628-9656131721157738-5464948084086853686-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/d4Y1p7g3/468737872-18035970641359962-4351001722269317157-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/0zZNW3z/491762383-9190758051028443-2272192657530014055-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/gMTR2GVm/468783843-18035974928359962-6592565528146902996-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/C3mTz603/508411285-9660249364079307-8391780781838835511-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/1GpsbLBV/509285521-9663892550381655-1622614155736921357-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/Ld3fXg6s/487554028-9098922063545376-8400247167281211008-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/nMhKxXsT/487829199-9098924270211822-2121340708736077802-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/F9xr6rH/487873591-9098924193545163-7590811420693269839-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/vCQcmWSs/488001764-9085045721599677-2611543439404917131-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/dw3dGh3t/492325796-9192412064196375-3382495993998645612-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/67Nj1c8D/493284259-9240202249417356-2769635812044599316-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/s96dYdsg/502583483-9662736960497214-3623503560528723466-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/wZB2g2w8/509442006-9656131637824413-6772204786679069093-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/3yD47bbn/509741381-9663882353716008-2517197167591541192-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/YB5qjdZR/509938987-9660249370745973-7836899380092053708-n.jpg"></div>
+                <div class="fun-card h-48 md:h-64 w-64 flex-shrink-0"><img src="https://i.ibb.co/p6MhzwhC/509992217-9665251746912402-6917768131015033618-n.jpg"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="useful-links" class="py-24 bg-black border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h4 class="gold-text uppercase tracking-widest text-xs mb-4">Official Resources</h4>
+            <h2 class="text-3xl font-bold uppercase tracking-widest">Useful <span class="gold-text">Links</span></h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="https://fbr.gov.pk/" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-landmark gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">FBR Official</span>
+            </a>
+            <a href="https://iris.fbr.gov.pk/login" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-user-shield gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">IRIS FBR Login</span>
+            </a>
+            <a href="https://e.pra.punjab.gov.pk/public/txplogin.xhtml" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-file-invoice-dollar gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">PRA Punjab</span>
+            </a>
+            <a href="https://bra.gob.pk/" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-building gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">BRA Balochistan</span>
+            </a>
+            <a href="https://e.srb.gos.pk/" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-gopuram gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">SRB Sindh</span>
+            </a>
+            <a href="https://kpra.kp.gov.pk/" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <div class="relative mb-3 flex items-center justify-center">
+                    <i class="fa-solid fa-scale-balanced text-3xl opacity-20 gold-text absolute"></i>
+                    <div class="relative z-10 bg-black/50 px-2 py-1 border border-[#c9a24d] rounded text-[9px] font-black gold-text tracking-tighter group-hover:scale-110 transition duration-300">LAW</div>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-widest">KPRA Khyber</span>
+            </a>
+            <a href="https://leap.secp.gov.pk/#/landing-page" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-briefcase gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">SECP Leap</span>
+            </a>
+            <a href="https://ipo.gov.pk/" target="_blank" class="session-link p-6 rounded-lg text-center flex flex-col items-center group">
+                <i class="fa-solid fa-certificate gold-text text-2xl mb-3 group-hover:scale-110 transition"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">IPO Pakistan</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="py-12 bg-black border-t border-white/5 text-center px-6">
+    <div class="mb-6 flex flex-wrap justify-center gap-8 text-[11px] uppercase tracking-widest text-slate-400">
+        <span><i class="fa-solid fa-phone gold-text mr-2"></i> 042-37354144</span>
+        <span><i class="fa-brands fa-whatsapp gold-text mr-2"></i> 0300 9417558</span>
+        <a href="https://maps.app.goo.gl/BNBPKh3ZtfsgnqJ47" target="_blank" class="hover:text-[#c9a24d]">
+            <span><i class="fa-solid fa-location-dot gold-text mr-2"></i> Al-Majeed Centre, Lahore</span>
+        </a>
+    </div>
+    <p class="text-slate-600 text-[10px] tracking-widest uppercase">© 2026 NAUMAN LAW ASSOCIATES | Built for Excellence</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script>
+    AOS.init({ once: true, duration: 800, disable: 'mobile' });
+
+    // TEAM CIRCULAR SLIDESHOW
+    const ring = document.getElementById('teamRing');
+    const members = document.querySelectorAll('.team-member-node');
+    const total = members.length;
+    const gap = 360 / total;
+    let currentIndex = 0;
+    const radius = window.innerWidth < 768 ? 240 : 360; 
+
+    function initCircularTeam() {
+        members.forEach((m, i) => {
+            const angle = i * gap;
+            gsap.set(m, {
+                rotationY: angle,
+                transformOrigin: `50% 50% ${-radius}px`,
+                z: radius
+            });
+            gsap.set(m.querySelector('.member-info'), { rotationY: -angle });
+        });
+        updateActive(0);
+    }
+
+    function rotateAuto() {
+        currentIndex = (currentIndex + 1) % total;
+        const targetRot = -currentIndex * gap;
+        
+        gsap.to(ring, {
+            rotationY: targetRot,
+            duration: 1.8,
+            ease: "power2.inOut",
+            onUpdate: function() {
+                const currentRingRot = gsap.getProperty(ring, "rotationY");
+                members.forEach((m, i) => {
+                    gsap.set(m.querySelector('.member-info'), {
+                        rotationY: -currentRingRot - (i * gap)
+                    });
+                });
+            }
+        });
+        updateActive(currentIndex);
+    }
+
+    function updateActive(idx) {
+        members.forEach((m, i) => {
+            if (i === idx) m.classList.add('active');
+            else m.classList.remove('active');
+        });
+    }
+
+    setInterval(rotateAuto, 4000);
+
+    // INFINITE LIFE AT FIRM SLIDESHOW
+    const track = document.getElementById('slideshow-track');
+    const originalCards = Array.from(track.children);
+    
+    // Clone cards for seamless loop
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    let xPos = 0;
+    const cardWidth = originalCards[0].offsetWidth + 16; // width + gap
+    const totalWidth = cardWidth * originalCards.length;
+
+    function animateSlideshow() {
+        xPos -= 1; // Speed of movement (1px per frame)
+        
+        // Reset position when the first set of cards has completely passed
+        if (Math.abs(xPos) >= totalWidth) {
+            xPos = 0;
+        }
+        
+        track.style.transform = `translateX(${xPos}px)`;
+        requestAnimationFrame(animateSlideshow);
+    }
+
+    window.addEventListener('load', () => {
+        initCircularTeam();
+        animateSlideshow();
+    });
+</script>
+
+</body>
+</html>
